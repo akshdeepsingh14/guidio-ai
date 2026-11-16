@@ -1,5 +1,7 @@
+
 import { LEGAL, SITE } from "@/lib/site-config";
 import {
+  EmailLink,
   LegalLayout,
   LegalList,
   LegalSection,
@@ -20,7 +22,7 @@ function PrivacyPolicyPage() {
         <p>
           This policy explains what information we collect, how it is used and
           what choices you have. You can contact us at{" "}
-          <Placeholder>{LEGAL.contactEmail}</Placeholder>.
+          <EmailLink />.
         </p>
       </LegalSection>
 
@@ -48,8 +50,8 @@ function PrivacyPolicyPage() {
           <li>AI assistant conversations: your messages and the AI replies</li>
           <li>Career guidance plans and skill gap reports</li>
           <li>
-            Mock interview sessions: the questions, the answers you type, scores,
-            feedback and improvement summaries
+            Mock interview sessions: the questions, the answers you type,
+            scores, feedback and improvement summaries
           </li>
           <li>Weekly readiness reminders shown inside the app</li>
         </LegalList>
@@ -57,8 +59,8 @@ function PrivacyPolicyPage() {
           <strong>Technical information.</strong> Our server keeps operational
           logs with the request method, page path, response status and timing.
           Sensitive fields are redacted, and we do not log request bodies or
-          query strings. Our hosting providers may keep their own logs, which can
-          include network information such as IP addresses.
+          query strings. Our hosting providers may keep their own logs, which
+          can include network information such as IP addresses.
         </p>
       </LegalSection>
 
@@ -84,13 +86,13 @@ function PrivacyPolicyPage() {
         </p>
         <LegalList>
           <li>
-            For career guidance and skill gap analysis: profile details such as
-            education, degree, experience level, target role, skills and
+            For career guidance and skill gap analysis: profile details such
+            as education, degree, experience level, target role, skills and
             interests (career guidance also includes your college)
           </li>
           <li>
-            For the AI assistant: your message and the most recent messages of
-            the same conversation, so the answer has context
+            For the AI assistant: your message and the most recent messages
+            of the same conversation, so the answer has context
           </li>
           <li>
             For mock interviews: the target role, the interview question and
@@ -131,8 +133,8 @@ function PrivacyPolicyPage() {
           <li>
             Inngest: scheduled and background tasks, such as weekly readiness
             reminders and interview improvement summaries. It receives internal
-            record identifiers and may process the task data needed to run these
-            tasks.{" "}
+            record identifiers and may process the task data needed to run
+            these tasks.{" "}
             <Placeholder>
               [CONFIRM: what task data Inngest stores and for how long]
             </Placeholder>
@@ -147,8 +149,8 @@ function PrivacyPolicyPage() {
       <LegalSection id="cookies" title="6. Cookies and browser storage">
         <LegalList>
           <li>
-            <strong>Sign-in cookies (essential).</strong> Clerk sets cookies and
-            similar storage that keep you signed in and secure the sign-in
+            <strong>Sign-in cookies (essential).</strong> Clerk sets cookies
+            and similar storage that keep you signed in and secure the sign-in
             process. The service cannot work without them.
           </li>
           <li>
@@ -159,8 +161,8 @@ function PrivacyPolicyPage() {
         </LegalList>
         <p>
           We do not currently use analytics, advertising or marketing cookies,
-          so we do not show a cookie consent banner. If we add anything that is
-          not essential, we will ask for your consent first and update this
+          so we do not show a cookie consent banner. If we add anything that
+          is not essential, we will ask for your consent first and update this
           policy.
         </p>
       </LegalSection>
@@ -195,16 +197,16 @@ function PrivacyPolicyPage() {
           <li>
             Ask us to provide a copy of your data, correct it or delete your
             account and stored records by writing to{" "}
-            <Placeholder>{LEGAL.contactEmail}</Placeholder>. We aim to respond
-            within <Placeholder>{LEGAL.responseTime}</Placeholder>.
+            <EmailLink />. We aim to respond within{" "}
+            <Placeholder>{LEGAL.responseTime}</Placeholder>.
           </li>
         </LegalList>
         <p>
           Depending on where you live, you may have additional rights under
           data protection law.{" "}
           <Placeholder>
-            [LEGAL REVIEW: confirm which data protection laws apply and add the
-            required details]
+            [LEGAL REVIEW: confirm which data protection laws apply and add
+            the required details]
           </Placeholder>
         </p>
       </LegalSection>
@@ -226,16 +228,15 @@ function PrivacyPolicyPage() {
       <LegalSection id="changes" title="12. Changes to this policy">
         <p>
           We may update this policy from time to time. The “Last updated” date
-          at the top shows when it last changed. If a change is significant, we
-          will make a reasonable effort to tell you.
+          at the top shows when it last changed. If a change is significant,
+          we will make a reasonable effort to tell you.
         </p>
       </LegalSection>
 
       <LegalSection id="contact" title="13. Contact">
         <p>
-          Questions about this policy or your data:{" "}
-          <Placeholder>{LEGAL.contactEmail}</Placeholder>. Please also read our{" "}
-          <TextLink to="/terms">Terms and Conditions</TextLink>.
+          Questions about this policy or your data: <EmailLink />. Please also
+          read our <TextLink to="/terms">Terms and Conditions</TextLink>.
         </p>
       </LegalSection>
     </LegalLayout>

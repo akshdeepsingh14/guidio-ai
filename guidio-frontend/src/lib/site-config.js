@@ -1,3 +1,4 @@
+
 export const SITE = {
   name: "Guidio AI",
   // Taken from render.yaml (CORS_ORIGINS). Confirm this is your live domain.
@@ -5,7 +6,7 @@ export const SITE = {
   legalUpdated: "14 November 2026",
 };
 
-// Replace each value with the real information.
+// Replace each placeholder value with the real information.
 // Until you do, the legal pages show these as highlighted placeholders.
 export const LEGAL = {
   operator: "[OPERATOR OR LEGAL ENTITY NAME — to be added]",

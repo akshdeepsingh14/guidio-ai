@@ -1,5 +1,5 @@
-Guidely AI
-Guidely AI is a free AI-powered career guidance and placement-preparation platform for college students and fresh graduates. Students create a profile, then get personalised skill-gap analysis, career roadmaps, mock interviews and an AI study assistant.
+Guidio AI
+Guidio AI is a free AI-powered career guidance and placement-preparation platform for college students and fresh graduates. Students create a profile, then get personalised skill-gap analysis, career roadmaps, mock interviews and an AI study assistant.
 Status: frontend and backend are complete. Backend details, API reference and AI provider setup are in [README.md](server/README.md).
 
 ---
@@ -294,9 +294,9 @@ This lets a phone or another laptop on the same Wi-Fi open the app running on yo
    Restart the backend. The server prints every allowed origin on start-up. Check yours is listed.
 5. Windows Firewall. Allow inbound connections on both ports for Private networks. Run PowerShell as Administrator:
    
-   New-NetFirewallRule -DisplayName "Guidely AI Frontend 5173" -Direction Inbound -Protocol TCP -LocalPort 5173 -Action Allow -Profile Private
+   New-NetFirewallRule -DisplayName "Guidio AI Frontend 5173" -Direction Inbound -Protocol TCP -LocalPort 5173 -Action Allow -Profile Private
    
-   New-NetFirewallRule -DisplayName "Guidely AI Backend 5000" -Direction Inbound -Protocol TCP -LocalPort 5000 -Action Allow -Profile Private
+   New-NetFirewallRule -DisplayName "Guidio AI Backend 5000" -Direction Inbound -Protocol TCP -LocalPort 5000 -Action Allow -Profile Private
    
    Make sure your Wi-Fi is set to a Private network (Settings → Network & internet → Wi-Fi → your network → Network profile type).
 6. On the phone, open http://192.168.1.25:5173.
@@ -342,7 +342,7 @@ This project uses a Clerk Development instance (keys starting with pk_test_ and 
 - Development instances are meant for development and testing, and they have usage limits. Check Clerk's current documentation before sharing the app with many users.
 - Setup: create an application in the Clerk dashboard, enable the sign-in methods you want, then copy the publishable key (frontend and backend) and the secret key (backend only).
 AI providers and free-tier limitations
-Guidely AI tries Google Gemini first, then Groq, then an optional local Ollama model. If one is rate limited or down, the next is used automatically. Free access has per-model quotas and rate limits that providers can change at any time, so do not assume it is unlimited or guaranteed to stay free.
+Guidio AI tries Google Gemini first, then Groq, then an optional local Ollama model. If one is rate limited or down, the next is used automatically. Free access has per-model quotas and rate limits that providers can change at any time, so do not assume it is unlimited or guaranteed to stay free.
 
 What the app does about it:
 - Shows a clear message with a wait time when every provider is limited (HTTP 429), and pauses the send button instead of repeating failing requests.
@@ -447,7 +447,7 @@ Troubleshooting
 
 | Install or build errors mentioning the Node version | Update to Node 22.22 or newer. Check node -v. |
 
-| "Cannot reach the Guidely AI server" | Backend not running, wrong VITE_API_BASE_URL, or the Render free service is waking up (wait about a minute and retry). |
+| "Cannot reach the Guidio AI server" | Backend not running, wrong VITE_API_BASE_URL, or the Render free service is waking up (wait about a minute and retry). |
 
 | Browser console shows a CORS error, or the server logs CORS BLOCKED | The frontend origin is not in the allowed list. Set CORS_ORIGINS (production) or FRONTEND_URL (LAN) to the exact origin, including http:// and the port, then restart the backend. |
 

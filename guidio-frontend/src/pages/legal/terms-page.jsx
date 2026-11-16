@@ -1,5 +1,7 @@
+
 import { LEGAL, SITE } from "@/lib/site-config";
 import {
+  EmailLink,
   LegalLayout,
   LegalList,
   LegalSection,
@@ -13,8 +15,8 @@ function TermsPage() {
       <LegalSection id="acceptance" title="1. Acceptance of these terms">
         <p>
           These terms apply to your use of Guidio AI, operated by{" "}
-          <Placeholder>{LEGAL.operator}</Placeholder>. By creating an account or
-          using the service, you agree to them and to our{" "}
+          <Placeholder>{LEGAL.operator}</Placeholder>. By creating an account
+          or using the service, you agree to them and to our{" "}
           <TextLink to="/privacy">Privacy Policy</TextLink>. If you do not
           agree, please do not use the service.
         </p>
@@ -23,8 +25,8 @@ function TermsPage() {
       <LegalSection id="service" title="2. The service">
         <p>
           Guidio AI is a free AI career companion for students. It includes an
-          AI assistant, skill gap analysis, career guidance, mock interviews, a
-          student profile and a dashboard.
+          AI assistant, skill gap analysis, career guidance, mock interviews,
+          a student profile and a dashboard.
         </p>
       </LegalSection>
 
@@ -58,7 +60,10 @@ function TermsPage() {
             Ask the AI to produce hateful, illegal, abusive or misleading
             content, or content that infringes someone else’s rights
           </li>
-          <li>Impersonate another person or submit someone’s personal data without the right to do so</li>
+          <li>
+            Impersonate another person or submit someone’s personal data
+            without the right to do so
+          </li>
           <li>Interfere with the service or with other users’ use of it</li>
         </LegalList>
       </LegalSection>
@@ -89,8 +94,8 @@ function TermsPage() {
           messages and interview answers. You give us permission to store and
           process it, including by sending the needed parts to our AI providers,
           only to run and improve the service as described in the{" "}
-          <TextLink to="/privacy">Privacy Policy</TextLink>. You are responsible
-          for the content you submit.
+          <TextLink to="/privacy">Privacy Policy</TextLink>. You are
+          responsible for the content you submit.
         </p>
       </LegalSection>
 
@@ -114,19 +119,23 @@ function TermsPage() {
       <LegalSection id="ip" title="10. Intellectual property">
         <p>
           The Guidio AI name, design and software belong to{" "}
-          <Placeholder>{LEGAL.operator}</Placeholder> or its licensors. You may
-          use the service for your own personal career preparation. You may not
-          copy, resell or reverse engineer it except where the law allows.
+          <Placeholder>{LEGAL.operator}</Placeholder> or its licensors. You
+          may use the service for your own personal career preparation. You
+          may not copy, resell or reverse engineer it except where the law
+          allows.
         </p>
       </LegalSection>
 
-      <LegalSection id="liability" title="11. Disclaimers and limitation of liability">
+      <LegalSection
+        id="liability"
+        title="11. Disclaimers and limitation of liability"
+      >
         <p>
           The service is provided “as is” and “as available”. To the fullest
-          extent permitted by law, we are not liable for indirect, incidental or
-          consequential losses, or for decisions you make based on AI-generated
-          content. Nothing in these terms excludes liability that cannot be
-          excluded by law.{" "}
+          extent permitted by law, we are not liable for indirect, incidental
+          or consequential losses, or for decisions you make based on
+          AI-generated content. Nothing in these terms excludes liability that
+          cannot be excluded by law.{" "}
           <Placeholder>
             [LEGAL REVIEW: have a lawyer confirm this clause for your
             jurisdiction]
@@ -153,15 +162,14 @@ function TermsPage() {
       <LegalSection id="changes" title="14. Changes to these terms">
         <p>
           We may update these terms. The “Last updated” date shows the latest
-          version. Continuing to use the service after a change means you accept
-          the updated terms.
+          version. Continuing to use the service after a change means you
+          accept the updated terms.
         </p>
       </LegalSection>
 
       <LegalSection id="contact" title="15. Contact">
         <p>
-          Questions about these terms:{" "}
-          <Placeholder>{LEGAL.contactEmail}</Placeholder>.
+          Questions about these terms: <EmailLink />.
         </p>
       </LegalSection>
     </LegalLayout>

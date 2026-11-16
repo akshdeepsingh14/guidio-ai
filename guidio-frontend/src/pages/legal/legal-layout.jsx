@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { Logo } from "@/components/common/logo";
 import { ModeToggle } from "@/components/mode-toggle";
 import { SkipLink } from "@/components/skip-link";
+import { LEGAL } from "@/lib/site-config";
 
 /** Highlights information that still has to be supplied by the site owner. */
 export function Placeholder({ children }) {
@@ -24,6 +25,18 @@ export function TextLink({ to, children }) {
     >
       {children}
     </Link>
+  );
+}
+
+/** A clickable mailto link to the contact email set in LEGAL.contactEmail. */
+export function EmailLink() {
+  return (
+    <a
+      href={`mailto:${LEGAL.contactEmail}`}
+      className="font-medium text-foreground underline underline-offset-4"
+    >
+      {LEGAL.contactEmail}
+    </a>
   );
 }
 

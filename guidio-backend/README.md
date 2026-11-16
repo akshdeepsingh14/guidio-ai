@@ -65,7 +65,7 @@ Cross-cutting pieces: `config/env.js` validates every environment variable at st
 ## Directory structure
 
 ```text
-server/
+guidio-backend/
 ├── prisma/
 │   └── schema.prisma             Data models and indexes
 ├── src/
