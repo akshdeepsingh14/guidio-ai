@@ -1,4 +1,4 @@
-import { useUser } from "@clerk/clerk-react";
+import { useUser } from "@clerk/react";
 import { Link, NavLink } from "react-router";
 import { LogoMark } from "@/components/common/logo";
 import {

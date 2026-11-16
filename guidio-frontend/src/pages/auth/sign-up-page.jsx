@@ -1,4 +1,4 @@
-import { SignUp } from "@clerk/clerk-react";
+import { SignUp } from "@clerk/react";
 import { AuthLayout } from "@/features/auth/auth-layout";
 import { withRedirect } from "@/features/auth/auth-redirect";
 import { ClerkFormShell } from "@/features/auth/clerk-form-shell";

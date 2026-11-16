@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useUser } from "@clerk/clerk-react";
+import { useUser } from "@clerk/react";
 import { ArrowRight, BarChart3, BrainCircuit, Mic, Target } from "lucide-react";
 import { Link } from "react-router";
 import { AiUsageNotice } from "@/components/common/ai-usage-notice";

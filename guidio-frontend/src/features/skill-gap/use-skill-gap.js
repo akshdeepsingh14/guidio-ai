@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/react";
 import { apiRequest } from "@/lib/api-client";
 import { getFriendlyAiError } from "@/lib/ai";
 import { useCooldown } from "@/hooks/use-cooldown";

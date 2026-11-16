@@ -1,4 +1,4 @@
-import { UserButton } from "@clerk/clerk-react";
+import { UserButton } from "@clerk/react";
 import { Menu } from "lucide-react";
 import { useLocation } from "react-router";
 import { ModeToggle } from "@/components/mode-toggle";

@@ -1,4 +1,4 @@
-import { useClerk, useUser } from "@clerk/clerk-react";
+import { useClerk, useUser } from "@clerk/react";
 import { ExternalLink, UserRound } from "lucide-react";
 import { Link } from "react-router";
 import { Badge } from "@/components/ui/badge";

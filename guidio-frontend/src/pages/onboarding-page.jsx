@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { useAuth, useUser } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/react";
 import { ErrorState } from "@/components/common/error-state";
 import { Logo } from "@/components/common/logo";
 import { ModeToggle } from "@/components/mode-toggle";

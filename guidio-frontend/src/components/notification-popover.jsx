@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/react";
 import { ArrowRight, Bell, CheckCheck, LoaderCircle, TriangleAlert } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";

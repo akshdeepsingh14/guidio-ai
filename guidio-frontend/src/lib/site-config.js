@@ -10,7 +10,7 @@ export const SITE = {
 // Until you do, the legal pages show these as highlighted placeholders.
 export const LEGAL = {
   operator: "[OPERATOR OR LEGAL ENTITY NAME — to be added]",
-  contactEmail: "guidioai@gmail.com",
+  contactEmail: "guidio.ai@gmail.com",
   databaseProvider: "[DATABASE HOSTING PROVIDER AND REGION — to be confirmed]",
   retention: "[RETENTION PERIOD AFTER ACCOUNT CLOSURE — to be defined]",
   responseTime: "[RESPONSE TIME FOR DELETION REQUESTS — to be defined]",

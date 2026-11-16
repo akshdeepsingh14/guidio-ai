@@ -1,4 +1,4 @@
-import { SignIn } from "@clerk/clerk-react";
+import { SignIn } from "@clerk/react";
 import { AuthLayout } from "@/features/auth/auth-layout";
 import { DEFAULT_AFTER_AUTH, withRedirect } from "@/features/auth/auth-redirect";
 import { ClerkFormShell } from "@/features/auth/clerk-form-shell";

@@ -1,6 +1,6 @@
 import { LoaderCircle } from "lucide-react";
 import { Navigate, useLocation } from "react-router";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/react";
 import { Logo } from "@/components/common/logo";
 import { withRedirect } from "@/features/auth/auth-redirect";
 

@@ -1,4 +1,4 @@
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/react";
 import { Logo } from "@/components/common/logo";
 import { ModeToggle } from "@/components/mode-toggle";
 import { SkipLink } from "@/components/skip-link";
