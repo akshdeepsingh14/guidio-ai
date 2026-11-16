@@ -27,13 +27,6 @@ const server = app.listen(env.port, "0.0.0.0", (error) => {
     );
   }
 
-  // TEMPORARY DIAGNOSTIC: remove after you have checked the Render logs.
-  logger.info("inngest_env_check", {
-    hasEventKey: Boolean(process.env.INNGEST_EVENT_KEY?.trim()),
-    hasSigningKey: Boolean(process.env.INNGEST_SIGNING_KEY?.trim()),
-    signingKeyPrefix: process.env.INNGEST_SIGNING_KEY?.slice(0, 12),
-  });
-
   connectDatabase();
 });
 
