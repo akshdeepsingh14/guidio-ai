@@ -75,7 +75,7 @@ const envSchema = z.object({
   AI_MAX_RETRIES: z.coerce.number().int().min(0).max(2).default(1),
 
   // Comma-separated list of allowed browser origins, for example:
-  // https://Guidio AI-one.vercel.app,http://localhost:5173
+  // https://guidio-ai.vercel.app,http://localhost:5173
   CORS_ORIGINS: z.string().optional(),
 
   // Legacy variables. They still work and are merged into the list above.

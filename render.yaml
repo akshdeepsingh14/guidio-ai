@@ -3,7 +3,7 @@ services:
     name: guidio-ai-api
     runtime: node
     plan: free
-    rootDir: server
+    rootDir: guidio-backend
     buildCommand: npm ci && npx prisma generate
     startCommand: npm start
     healthCheckPath: /api/health
@@ -13,7 +13,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: CORS_ORIGINS
-        value: https://guidio-ai-one.vercel.app
+        value: https://guidio-ai.vercel.app
       - key: GEMINI_MODEL
         value: gemini-3.6-flash
       - key: GROQ_MODEL

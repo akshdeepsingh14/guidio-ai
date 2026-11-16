@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://Guidio-Ai-one.vercel.app/sitemap.xml
+Sitemap: https://guidio-ai.vercel.app/sitemap.xml

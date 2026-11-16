@@ -1,5 +1,5 @@
 {
-  "name": "Guidio AI-server",
+  "name": "guidio-ai-server",
   "version": "1.1.0",
   "description": "Guidio AI Express backend",
   "main": "src/server.js",
@@ -17,7 +17,7 @@
     "db:push": "prisma db push"
   },
   "keywords": [
-    "Guidio AI",
+    "guidio-ai",
     "express",
     "clerk",
     "prisma",
