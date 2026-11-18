@@ -21,7 +21,7 @@ const highlights = [
   "Skill gap analysis against your target role",
   "Career roadmaps built around your profile",
   "Technical and HR mock interviews with scored feedback",
-  "An AI assistant for coding and placement doubts",
+  "An AI assistant for study and career questions",
 ];
 
 /**

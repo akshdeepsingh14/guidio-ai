@@ -1,3 +1,4 @@
+
 import { cn } from "@/lib/utils";
 
 /** Small decorative illustrations for the feature cards. */
@@ -35,10 +36,10 @@ function AssistantVisual() {
     <VisualFrame>
       <div className="space-y-2">
         <p className="ml-auto w-fit max-w-[85%] rounded-xl rounded-br-sm bg-primary px-3 py-2 text-xs text-primary-foreground">
-          How do I prepare for a frontend role?
+          How do I prepare for my first job in my field?
         </p>
         <p className="w-fit max-w-[90%] rounded-xl rounded-bl-sm bg-muted px-3 py-2 text-xs text-muted-foreground">
-          Start with JavaScript basics, then React, then build one small project.
+          Start with the core subjects, then practise with one small project or case study.
         </p>
       </div>
     </VisualFrame>
@@ -49,9 +50,17 @@ function SkillGapVisual() {
   return (
     <VisualFrame>
       <div className="space-y-2.5">
-        <MiniBar label="JavaScript" width="85%" />
-        <MiniBar label="React" width="55%" className="bg-foreground/60" />
-        <MiniBar label="Testing" width="20%" className="bg-foreground/25" />
+        <MiniBar label="Communication" width="85%" />
+        <MiniBar
+          label="Subject knowledge"
+          width="55%"
+          className="bg-foreground/60"
+        />
+        <MiniBar
+          label="Presentation"
+          width="20%"
+          className="bg-foreground/25"
+        />
       </div>
     </VisualFrame>
   );
@@ -81,8 +90,16 @@ function InterviewVisual() {
     <VisualFrame>
       <div className="space-y-2.5">
         <MiniBar label="Technical" width="78%" />
-        <MiniBar label="Communication" width="64%" className="bg-foreground/60" />
-        <MiniBar label="Structure" width="48%" className="bg-foreground/40" />
+        <MiniBar
+          label="Communication"
+          width="64%"
+          className="bg-foreground/60"
+        />
+        <MiniBar
+          label="Structure"
+          width="48%"
+          className="bg-foreground/40"
+        />
       </div>
     </VisualFrame>
   );

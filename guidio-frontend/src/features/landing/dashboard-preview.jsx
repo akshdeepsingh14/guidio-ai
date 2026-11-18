@@ -1,3 +1,4 @@
+
 import {
   BarChart3,
   BrainCircuit,
@@ -25,15 +26,15 @@ const stats = [
 ];
 
 const skills = [
-  { name: "JavaScript", width: "85%", barClass: "bg-foreground" },
-  { name: "React", width: "55%", barClass: "bg-foreground/60" },
-  { name: "Testing", width: "20%", barClass: "bg-foreground/25", high: true },
+  { name: "Communication", width: "85%", barClass: "bg-foreground" },
+  { name: "Market research", width: "55%", barClass: "bg-foreground/60" },
+  { name: "Data analysis", width: "20%", barClass: "bg-foreground/25", high: true },
 ];
 
 const activity = [
-  { text: "Frontend mock interview completed", time: "Today" },
+  { text: "Mock interview completed", time: "Today" },
   { text: "Skill gap report saved", time: "Yesterday" },
-  { text: "Asked the assistant about React hooks", time: "2 days ago" },
+  { text: "Asked the assistant about a study topic", time: "2 days ago" },
 ];
 
 /**
@@ -120,7 +121,9 @@ export function DashboardPreview({ className }) {
 
             <div className="grid gap-3 lg:grid-cols-5">
               <div className="rounded-lg border bg-background p-3 sm:p-4 lg:col-span-3">
-                <p className="text-xs font-medium">Skill gap: Frontend Developer</p>
+                <p className="text-xs font-medium">
+                  Skill gap: Marketing Executive
+                </p>
 
                 <div className="mt-3 space-y-3">
                   {skills.map((skill) => (

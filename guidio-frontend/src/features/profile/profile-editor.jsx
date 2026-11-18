@@ -25,21 +25,19 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useCooldown } from "@/hooks/use-cooldown";
+import { getFieldProfile } from "@/features/onboarding/field-data";
 import {
-  BRANCH_SUGGESTIONS,
-  DEGREE_SUGGESTIONS,
   EDUCATION_OPTIONS,
   EXPERIENCE_OPTIONS,
-  INTEREST_SUGGESTIONS,
   LIMITS,
   PROGRAMMING_LANGUAGES,
-  ROLE_SUGGESTIONS,
-  SKILL_SUGGESTIONS,
   normalizeName,
   profileToForm,
 } from "@/features/onboarding/onboarding-data";
 import { ChoiceGroup } from "@/features/onboarding/choice-group";
+import { FieldSelect } from "@/features/onboarding/field-select";
 import { FormField } from "@/features/onboarding/form-field";
+import { SuggestionButtons } from "@/features/onboarding/suggestion-buttons";
 import { CompletionChecklist } from "@/features/profile/completion-checklist";
 import { ProfileSummary } from "@/features/profile/profile-summary";
 import {
@@ -70,30 +68,6 @@ function focusFirstInvalidField() {
       field.scrollIntoView({ block: "center", behavior: "smooth" });
     }
   });
-}
-
-function SuggestionButtons({ options, current, onPick, disabled }) {
-  return (
-    <ul className="flex flex-wrap gap-1.5">
-      {options.map((option) => {
-        const isActive = current.trim().toLowerCase() === option.toLowerCase();
-
-        return (
-          <li key={option}>
-            <button
-              type="button"
-              onClick={() => onPick(option)}
-              disabled={disabled}
-              aria-pressed={isActive}
-              className="inline-flex items-center rounded-md border px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-pressed:border-foreground aria-pressed:text-foreground"
-            >
-              {option}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
-  );
 }
 
 function Section({ icon: Icon, title, description, children }) {
@@ -239,6 +213,9 @@ export function ProfileEditor({ initialProfile, onSave }) {
   if (isSaving) saveLabel = "Saving...";
   else if (isWaiting) saveLabel = `Try again in ${cooldown.remaining}s`;
 
+  const field = getFieldProfile(form.field);
+  const showLanguages = field.showLanguages || form.languages.length > 0;
+
   const skillsMax = Math.max(
     form.skills.length,
     LIMITS.maxSkills - form.languages.length
@@ -309,7 +286,7 @@ export function ProfileEditor({ initialProfile, onSave }) {
               )}
             </FormField>
 
-            <FormField name="college" label="College or university" error={errors.college}>
+            <FormField name="college" label="College, university or institute" error={errors.college}>
               {(control) => (
                 <Input
                   {...control}
@@ -323,6 +300,22 @@ export function ProfileEditor({ initialProfile, onSave }) {
               )}
             </FormField>
 
+            <FormField
+              name="field"
+              label="Field of study"
+              optional
+              hint="Only used to suggest relevant options. You can type anything in the fields below."
+            >
+              {(control) => (
+                <FieldSelect
+                  {...control}
+                  value={form.field}
+                  onChange={(value) => handleChange("field", value)}
+                  disabled={isSaving}
+                />
+              )}
+            </FormField>
+
             <FormField name="degree" label="Degree or course" error={errors.degree}>
               {(control) => (
                 <div className="space-y-2">
@@ -330,13 +323,13 @@ export function ProfileEditor({ initialProfile, onSave }) {
                     {...control}
                     value={form.degree}
                     onChange={(event) => handleChange("degree", event.target.value)}
-                    placeholder="Example: B.Tech"
+                    placeholder={`Example: ${field.degrees[0]}`}
                     autoComplete="off"
                     disabled={isSaving}
                     className="h-10"
                   />
                   <SuggestionButtons
-                    options={DEGREE_SUGGESTIONS}
+                    options={field.degrees}
                     current={form.degree}
                     onPick={(value) => handleChange("degree", value)}
                     disabled={isSaving}
@@ -345,20 +338,20 @@ export function ProfileEditor({ initialProfile, onSave }) {
               )}
             </FormField>
 
-            <FormField name="branch" label="Branch or specialization" optional error={errors.branch}>
+            <FormField name="branch" label="Branch, specialisation or subject" optional error={errors.branch}>
               {(control) => (
                 <div className="space-y-2">
                   <Input
                     {...control}
                     value={form.branch}
                     onChange={(event) => handleChange("branch", event.target.value)}
-                    placeholder="Example: Computer Science"
+                    placeholder={`Example: ${field.branches[0]}`}
                     autoComplete="off"
                     disabled={isSaving}
                     className="h-10"
                   />
                   <SuggestionButtons
-                    options={BRANCH_SUGGESTIONS}
+                    options={field.branches}
                     current={form.branch}
                     onPick={(value) => handleChange("branch", value)}
                     disabled={isSaving}
@@ -412,44 +405,46 @@ export function ProfileEditor({ initialProfile, onSave }) {
             description="This powers your skill-gap analysis and mock interviews."
           >
             <FormField
-              name="languages"
-              label="Programming languages"
-              optional
-              hint="Languages you can write code in."
-            >
-              {(control) => (
-                <ChipInput
-                  {...control}
-                  value={form.languages}
-                  onChange={(value) => handleChange("languages", value)}
-                  suggestions={PROGRAMMING_LANGUAGES}
-                  placeholder="Example: Python"
-                  maxItems={languagesMax}
-                  maxLength={LIMITS.skill}
-                  disabled={isSaving}
-                />
-              )}
-            </FormField>
-
-            <FormField
               name="skills"
-              label="Technical skills"
+              label="Skills and knowledge"
               error={errors.skills}
-              hint="Tools, frameworks and concepts you know."
+              hint="Subjects, tools, methods and abilities you already have."
             >
               {(control) => (
                 <ChipInput
                   {...control}
                   value={form.skills}
                   onChange={(value) => handleChange("skills", value)}
-                  suggestions={SKILL_SUGGESTIONS}
-                  placeholder="Example: React"
+                  suggestions={field.skills}
+                  placeholder={`Example: ${field.skills[0]}`}
                   maxItems={skillsMax}
                   maxLength={LIMITS.skill}
                   disabled={isSaving}
                 />
               )}
             </FormField>
+
+            {showLanguages ? (
+              <FormField
+                name="languages"
+                label="Programming languages"
+                optional
+                hint="Only if you write code, for example for data work or research."
+              >
+                {(control) => (
+                  <ChipInput
+                    {...control}
+                    value={form.languages}
+                    onChange={(value) => handleChange("languages", value)}
+                    suggestions={PROGRAMMING_LANGUAGES}
+                    placeholder="Example: Python"
+                    maxItems={languagesMax}
+                    maxLength={LIMITS.skill}
+                    disabled={isSaving}
+                  />
+                )}
+              </FormField>
+            ) : null}
           </Section>
 
           <Section
@@ -469,13 +464,13 @@ export function ProfileEditor({ initialProfile, onSave }) {
                     {...control}
                     value={form.targetRole}
                     onChange={(event) => handleChange("targetRole", event.target.value)}
-                    placeholder="Example: Frontend Developer"
+                    placeholder={`Example: ${field.roles[0]}`}
                     autoComplete="off"
                     disabled={isSaving}
                     className="h-10"
                   />
                   <SuggestionButtons
-                    options={ROLE_SUGGESTIONS}
+                    options={field.roles}
                     current={form.targetRole}
                     onPick={(value) => handleChange("targetRole", value)}
                     disabled={isSaving}
@@ -495,8 +490,8 @@ export function ProfileEditor({ initialProfile, onSave }) {
                   {...control}
                   value={form.interests}
                   onChange={(value) => handleChange("interests", value)}
-                  suggestions={INTEREST_SUGGESTIONS}
-                  placeholder="Example: Web Development"
+                  suggestions={field.interests}
+                  placeholder={`Example: ${field.interests[0]}`}
                   maxItems={LIMITS.maxInterests}
                   maxLength={LIMITS.interest}
                   disabled={isSaving}

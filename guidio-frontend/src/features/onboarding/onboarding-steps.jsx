@@ -1,18 +1,16 @@
 import { ChipInput } from "@/components/common/chip-input";
 import { Input } from "@/components/ui/input";
+import { getFieldProfile } from "@/features/onboarding/field-data";
 import {
-  BRANCH_SUGGESTIONS,
-  DEGREE_SUGGESTIONS,
   EDUCATION_OPTIONS,
   EXPERIENCE_OPTIONS,
-  INTEREST_SUGGESTIONS,
   LIMITS,
   PROGRAMMING_LANGUAGES,
-  ROLE_SUGGESTIONS,
-  SKILL_SUGGESTIONS,
 } from "@/features/onboarding/onboarding-data";
 import { ChoiceGroup } from "@/features/onboarding/choice-group";
+import { FieldSelect } from "@/features/onboarding/field-select";
 import { FormField } from "@/features/onboarding/form-field";
+import { SuggestionButtons } from "@/features/onboarding/suggestion-buttons";
 
 /**
  * Every step receives the same props:
@@ -22,28 +20,9 @@ import { FormField } from "@/features/onboarding/form-field";
  *   disabled  true while a save is running
  */
 
-function SuggestionButtons({ options, current, onPick, disabled }) {
-  return (
-    <ul className="flex flex-wrap gap-1.5">
-      {options.map((option) => {
-        const isActive = current.trim().toLowerCase() === option.toLowerCase();
-
-        return (
-          <li key={option}>
-            <button
-              type="button"
-              onClick={() => onPick(option)}
-              disabled={disabled}
-              aria-pressed={isActive}
-              className="inline-flex items-center rounded-md border px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-pressed:border-foreground aria-pressed:text-foreground"
-            >
-              {option}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
-  );
+/** "Example: Law" built from the first suggestion of the chosen field. */
+function exampleOf(list) {
+  return `Example: ${list[0]}`;
 }
 
 export function BasicsStep({ form, errors, onChange, disabled }) {
@@ -82,7 +61,7 @@ export function BasicsStep({ form, errors, onChange, disabled }) {
         )}
       </FormField>
 
-      <FormField name="college" label="College or university" error={errors.college}>
+      <FormField name="college" label="College, university or institute" error={errors.college}>
         {(control) => (
           <Input
             {...control}
@@ -100,8 +79,26 @@ export function BasicsStep({ form, errors, onChange, disabled }) {
 }
 
 export function AcademicsStep({ form, errors, onChange, disabled }) {
+  const field = getFieldProfile(form.field);
+
   return (
     <div className="space-y-6">
+      <FormField
+        name="field"
+        label="Field of study"
+        optional
+        hint="Only used to suggest relevant options. You can type anything in the fields below."
+      >
+        {(control) => (
+          <FieldSelect
+            {...control}
+            value={form.field}
+            onChange={(value) => onChange("field", value)}
+            disabled={disabled}
+          />
+        )}
+      </FormField>
+
       <FormField name="degree" label="Degree or course" error={errors.degree}>
         {(control) => (
           <div className="space-y-2">
@@ -109,13 +106,13 @@ export function AcademicsStep({ form, errors, onChange, disabled }) {
               {...control}
               value={form.degree}
               onChange={(event) => onChange("degree", event.target.value)}
-              placeholder="Example: B.Tech"
+              placeholder={exampleOf(field.degrees)}
               autoComplete="off"
               disabled={disabled}
               className="h-10"
             />
             <SuggestionButtons
-              options={DEGREE_SUGGESTIONS}
+              options={field.degrees}
               current={form.degree}
               onPick={(value) => onChange("degree", value)}
               disabled={disabled}
@@ -126,7 +123,7 @@ export function AcademicsStep({ form, errors, onChange, disabled }) {
 
       <FormField
         name="branch"
-        label="Branch or specialization"
+        label="Branch, specialisation or subject"
         optional
         error={errors.branch}
       >
@@ -136,13 +133,13 @@ export function AcademicsStep({ form, errors, onChange, disabled }) {
               {...control}
               value={form.branch}
               onChange={(event) => onChange("branch", event.target.value)}
-              placeholder="Example: Computer Science"
+              placeholder={exampleOf(field.branches)}
               autoComplete="off"
               disabled={disabled}
               className="h-10"
             />
             <SuggestionButtons
-              options={BRANCH_SUGGESTIONS}
+              options={field.branches}
               current={form.branch}
               onPick={(value) => onChange("branch", value)}
               disabled={disabled}
@@ -195,6 +192,8 @@ export function AcademicsStep({ form, errors, onChange, disabled }) {
 }
 
 export function SkillsStep({ form, errors, onChange, disabled }) {
+  const field = getFieldProfile(form.field);
+  const showLanguages = field.showLanguages || form.languages.length > 0;
   const total = new Set(
     [...form.skills, ...form.languages].map((item) => item.toLowerCase())
   ).size;
@@ -202,38 +201,18 @@ export function SkillsStep({ form, errors, onChange, disabled }) {
   return (
     <div className="space-y-6">
       <FormField
-        name="languages"
-        label="Programming languages"
-        optional
-        hint="Languages you can write code in."
-      >
-        {(control) => (
-          <ChipInput
-            {...control}
-            value={form.languages}
-            onChange={(value) => onChange("languages", value)}
-            suggestions={PROGRAMMING_LANGUAGES}
-            placeholder="Example: Python"
-            maxItems={Math.max(form.languages.length, LIMITS.maxSkills - form.skills.length)}
-            maxLength={LIMITS.skill}
-            disabled={disabled}
-          />
-        )}
-      </FormField>
-
-      <FormField
         name="skills"
-        label="Technical skills"
+        label="Skills and knowledge"
         error={errors.skills}
-        hint="Tools, frameworks and concepts you know. Add at least one skill or language."
+        hint="Subjects, tools, methods and abilities you already have. Add at least one."
       >
         {(control) => (
           <ChipInput
             {...control}
             value={form.skills}
             onChange={(value) => onChange("skills", value)}
-            suggestions={SKILL_SUGGESTIONS}
-            placeholder="Example: React"
+            suggestions={field.skills}
+            placeholder={exampleOf(field.skills)}
             maxItems={Math.max(form.skills.length, LIMITS.maxSkills - form.languages.length)}
             maxLength={LIMITS.skill}
             disabled={disabled}
@@ -241,14 +220,38 @@ export function SkillsStep({ form, errors, onChange, disabled }) {
         )}
       </FormField>
 
+      {showLanguages ? (
+        <FormField
+          name="languages"
+          label="Programming languages"
+          optional
+          hint="Only if you write code, for example for data work or research."
+        >
+          {(control) => (
+            <ChipInput
+              {...control}
+              value={form.languages}
+              onChange={(value) => onChange("languages", value)}
+              suggestions={PROGRAMMING_LANGUAGES}
+              placeholder="Example: Python"
+              maxItems={Math.max(form.languages.length, LIMITS.maxSkills - form.skills.length)}
+              maxLength={LIMITS.skill}
+              disabled={disabled}
+            />
+          )}
+        </FormField>
+      ) : null}
+
       <p className="text-xs text-muted-foreground">
-        {total} of {LIMITS.maxSkills} skills and languages added.
+        {total} of {LIMITS.maxSkills} skills added.
       </p>
     </div>
   );
 }
 
 export function DirectionStep({ form, errors, onChange, disabled }) {
+  const field = getFieldProfile(form.field);
+
   return (
     <div className="space-y-6">
       <FormField
@@ -263,13 +266,13 @@ export function DirectionStep({ form, errors, onChange, disabled }) {
               {...control}
               value={form.targetRole}
               onChange={(event) => onChange("targetRole", event.target.value)}
-              placeholder="Example: Frontend Developer"
+              placeholder={exampleOf(field.roles)}
               autoComplete="off"
               disabled={disabled}
               className="h-10"
             />
             <SuggestionButtons
-              options={ROLE_SUGGESTIONS}
+              options={field.roles}
               current={form.targetRole}
               onPick={(value) => onChange("targetRole", value)}
               disabled={disabled}
@@ -289,8 +292,8 @@ export function DirectionStep({ form, errors, onChange, disabled }) {
             {...control}
             value={form.interests}
             onChange={(value) => onChange("interests", value)}
-            suggestions={INTEREST_SUGGESTIONS}
-            placeholder="Example: Web Development"
+            suggestions={field.interests}
+            placeholder={exampleOf(field.interests)}
             maxItems={LIMITS.maxInterests}
             maxLength={LIMITS.interest}
             disabled={disabled}

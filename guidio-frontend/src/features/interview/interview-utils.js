@@ -19,7 +19,7 @@ export const INTERVIEW_TYPES = [
   {
     value: "Technical",
     label: "Technical",
-    description: "Skills and concepts for your role",
+    description: "Subject knowledge and scenarios for your role",
   },
   {
     value: "HR",
@@ -29,7 +29,7 @@ export const INTERVIEW_TYPES = [
   {
     value: "Mixed",
     label: "Mixed",
-    description: "Technical and HR questions together",
+    description: "Role knowledge and HR questions together",
   },
 ];
 
@@ -52,7 +52,7 @@ export const DIFFICULTIES = [
 ];
 
 export const SCORE_DIMENSIONS = [
-  { key: "technicalScore", label: "Technical" },
+  { key: "technicalScore", label: "Subject knowledge" },
   { key: "communicationScore", label: "Communication" },
   { key: "structureScore", label: "Structure" },
   { key: "confidenceScore", label: "Confidence" },

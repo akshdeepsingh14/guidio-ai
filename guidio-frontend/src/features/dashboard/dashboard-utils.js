@@ -106,7 +106,7 @@ export function getReadinessLabel(score) {
 export const QUICK_ACTIONS = [
   {
     title: "Ask AI Assistant",
-    description: "Get help with coding, concepts or career questions.",
+    description: "Get help with your studies, concepts or career questions.",
     href: "/assistant",
     icon: BrainCircuit,
   },
@@ -247,7 +247,7 @@ export function getNextSteps(dashboard) {
     steps.push({
       id: "assistant",
       title: "Ask the AI Assistant a question",
-      description: "Try a coding doubt, a concept or a placement question.",
+      description: "Try a question about a concept, your studies or your career.",
       href: "/assistant",
       icon: BrainCircuit,
     });

@@ -10,10 +10,14 @@
  *   fullName   -> saved to the Clerk account (first name + last name)
  *   branch     -> saved inside `degree` as "Degree | Branch"
  *   languages  -> saved inside `skills` (split back out when loading)
+ *   field      -> not saved. It only chooses which suggestions are shown
+ *                 (see field-data.js) and is guessed again when loading.
  */
 
+import { inferFieldId } from "@/features/onboarding/field-data";
+
 /* =========================================================
-   LIMITS (mirror server/src/middleware/validate-profile.js)
+   LIMITS (mirror guidio-backend/src/middleware/validate-profile.js)
    ========================================================= */
 
 export const LIMITS = {
@@ -55,32 +59,6 @@ export const EXPERIENCE_OPTIONS = [
   { value: "Experienced", label: "Experienced", description: "Working professional" },
 ];
 
-export const DEGREE_SUGGESTIONS = [
-  "B.Tech",
-  "B.E.",
-  "BCA",
-  "B.Sc",
-  "BBA",
-  "B.Com",
-  "BA",
-  "Diploma",
-  "M.Tech",
-  "MCA",
-  "M.Sc",
-  "MBA",
-];
-
-export const BRANCH_SUGGESTIONS = [
-  "Computer Science",
-  "Information Technology",
-  "Electronics",
-  "Mechanical",
-  "Civil",
-  "Electrical",
-  "Data Science",
-  "Artificial Intelligence",
-];
-
 export const PROGRAMMING_LANGUAGES = [
   "Python",
   "Java",
@@ -98,50 +76,6 @@ export const PROGRAMMING_LANGUAGES = [
   "SQL",
   "R",
   "Dart",
-];
-
-export const SKILL_SUGGESTIONS = [
-  "HTML",
-  "CSS",
-  "React",
-  "Node.js",
-  "Express.js",
-  "MongoDB",
-  "Git",
-  "Data Structures",
-  "Algorithms",
-  "Machine Learning",
-  "Docker",
-  "Linux",
-  "REST APIs",
-  "Communication",
-];
-
-export const INTEREST_SUGGESTIONS = [
-  "Web Development",
-  "Artificial Intelligence",
-  "Data Science",
-  "Cybersecurity",
-  "Cloud Computing",
-  "Mobile Apps",
-  "DevOps",
-  "UI/UX Design",
-  "Game Development",
-  "Embedded Systems",
-];
-
-export const ROLE_SUGGESTIONS = [
-  "Frontend Developer",
-  "Backend Developer",
-  "Full Stack Developer",
-  "Data Analyst",
-  "Data Scientist",
-  "Machine Learning Engineer",
-  "DevOps Engineer",
-  "Mobile App Developer",
-  "Cybersecurity Analyst",
-  "UI/UX Designer",
-  "Software Engineer",
 ];
 
 /* =========================================================
@@ -182,6 +116,7 @@ const LANGUAGE_LOOKUP = new Map(
 export function createEmptyForm(fullName = "") {
   return {
     fullName,
+    field: "",
     education: "",
     college: "",
     degree: "",
@@ -268,6 +203,11 @@ export function profileToForm(profile, fullName = "") {
 
   return {
     ...form,
+    field: inferFieldId({
+      degree,
+      branch,
+      targetRole: profile.targetRole || "",
+    }),
     education: profile.education || "",
     college: profile.college || "",
     degree,
@@ -343,7 +283,7 @@ export function validateStep(stepId, form) {
     const college = form.college.trim();
 
     if (college.length < 2) {
-      errors.college = "Enter your college or university.";
+      errors.college = "Enter your college, university or institute.";
     } else if (college.length > LIMITS.college) {
       errors.college = `Must be ${LIMITS.college} characters or fewer.`;
     }
@@ -378,9 +318,9 @@ export function validateStep(stepId, form) {
     const merged = mergeSkills(form.skills, form.languages);
 
     if (merged.length === 0) {
-      errors.skills = "Add at least one skill or programming language.";
+      errors.skills = "Add at least one skill or area of knowledge.";
     } else if (merged.length > LIMITS.maxSkills) {
-      errors.skills = `You can add up to ${LIMITS.maxSkills} skills and languages in total.`;
+      errors.skills = `You can add up to ${LIMITS.maxSkills} skills in total.`;
     }
   }
 

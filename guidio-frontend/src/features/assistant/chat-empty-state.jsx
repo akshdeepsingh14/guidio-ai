@@ -16,7 +16,7 @@ export function ChatEmptyState({ onPick, disabled }) {
       </h2>
 
       <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-        Ask about programming, DSA, placements, resumes, interviews or learning
+        Ask about your studies, a concept you are stuck on, career choices, resumes, interviews or learning
         roadmaps. Pick a suggestion or type your own question.
       </p>
 

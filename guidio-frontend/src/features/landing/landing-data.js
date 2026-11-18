@@ -1,3 +1,4 @@
+
 import {
   BarChart3,
   BrainCircuit,
@@ -23,7 +24,7 @@ export const navLinks = [
 
 /**
  * The four tools. Every point below matches something the backend really
- * returns (see the AI schemas in server/src/ai).
+ * returns (see the AI schemas in guidio-backend/src/ai).
  */
 export const features = [
   {
@@ -31,9 +32,9 @@ export const features = [
     icon: BrainCircuit,
     title: "AI Student Assistant",
     description:
-      "Ask about programming, DSA, resumes, placements or any concept you are stuck on and get clear, step-by-step help.",
+      "Ask about your subjects, resumes, interviews, careers or any concept you are stuck on and get clear, step-by-step help.",
     points: [
-      "Formatted answers with code examples",
+      "Clear, formatted answers with examples from your field",
       "Saved conversations you can come back to",
       "Roadmaps and interview preparation help",
     ],
@@ -67,9 +68,9 @@ export const features = [
     icon: Mic,
     title: "AI Mock Interview",
     description:
-      "Practise technical, HR or behavioural interviews and get scored feedback on every session.",
+      "Practise role-based, HR or behavioural interviews for your own field and get scored feedback on every session.",
     points: [
-      "Overall, technical and communication scores",
+      "Overall, subject knowledge and communication scores",
       "Strengths and improvement suggestions",
       "Interview history to track progress",
     ],
@@ -117,14 +118,14 @@ export const journey = [
     title: "Learn",
     tool: "AI Student Assistant",
     description:
-      "Work through your learning plan and ask the assistant whenever a concept or a bug blocks you.",
+      "Work through your learning plan and ask the assistant whenever a concept or a problem blocks you.",
   },
   {
     icon: Mic,
     title: "Practise",
     tool: "AI Mock Interview",
     description:
-      "Take technical, HR or behavioural mock interviews and review your scored feedback.",
+      "Take role-based, HR or behavioural mock interviews and review your scored feedback.",
   },
 ];
 
@@ -137,9 +138,9 @@ export const benefits = [
   },
   {
     icon: Rocket,
-    title: "Built for placements",
+    title: "Built for every field",
     description:
-      "Technical and HR interview practice, DSA help and resume guidance in one place.",
+      "Interview practice, study help and career guidance for engineering, medicine, commerce, law, arts, design, teaching and more.",
   },
   {
     icon: ListChecks,
@@ -172,19 +173,19 @@ export const faqs = [
     value: "free",
     question: "Is Guidio AI free?",
     answer:
-      "Yes, Guidio AI is free for students to use. The AI features run on Google Gemini's free tier, which has usage limits, so during busy periods a request may be temporarily limited.",
+      "Yes, Guidio AI is free for students to use. The AI features run on free AI services such as Google Gemini and Groq, which have usage limits, so during busy periods a request may be temporarily limited.",
   },
   {
     value: "limits",
     question: "What happens when the AI limit is reached?",
     answer:
-      "You will see a clear message and can try again shortly. Free-tier quotas are set by Google and can change, so availability is not guaranteed.",
+      "You will see a clear message and can try again shortly. Free-tier quotas are set by the AI providers and can change, so availability is not guaranteed.",
   },
   {
     value: "who",
     question: "Who is Guidio AI for?",
     answer:
-      "College students, fresh graduates and anyone preparing for placements, learning to code or looking for career direction.",
+      "Students and fresh graduates from any field, including engineering, medicine, commerce, law, arts, design, education and government exam preparation, as well as anyone looking for career direction.",
   },
   {
     value: "skill-gap",

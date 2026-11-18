@@ -1,7 +1,7 @@
 
 import { AI_ERROR, isAiError } from "../ai/ai-errors.js";
 import { aiService } from "../ai/ai-service.js";
-import { assistantSystemInstruction } from "../ai/assistant-prompt.js";
+import { buildAssistantSystemInstruction } from "../ai/assistant-prompt.js";
 import { prisma } from "../config/prisma.js";
 import { AppError } from "../utils/app-error.js";
 import { logger } from "../utils/logger.js";
@@ -239,6 +239,18 @@ export async function createAssistantReply({
     content: message.content,
   }));
 
+  // Optional background so answers fit the student's field and level.
+  // If it cannot be loaded, the assistant still answers normally.
+  const studentProfile = await prisma.studentProfile
+    .findUnique({
+      where: { userId },
+      select: { education: true, degree: true, targetRole: true },
+    })
+    .catch((error) => {
+      logger.warn("assistant_profile_context_failed", { userId, error });
+      return null;
+    });
+
   let aiResult;
 
   try {
@@ -246,7 +258,7 @@ export async function createAssistantReply({
     // user-safe message. The user message is intentionally kept.
     aiResult = await aiService.streamText({
       feature: "assistant",
-      system: assistantSystemInstruction,
+      system: buildAssistantSystemInstruction(studentProfile),
       messages: history,
       onChunk,
       signal,

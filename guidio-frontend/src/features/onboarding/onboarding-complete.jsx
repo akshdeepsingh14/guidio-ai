@@ -92,7 +92,7 @@ export function OnboardingComplete({ form, firstName, onEdit }) {
           <SummaryRow label="Graduation year">{form.graduationYear}</SummaryRow>
           <SummaryRow label="Experience level">{form.experienceLevel}</SummaryRow>
           <SummaryRow label="Preferred role">{form.targetRole}</SummaryRow>
-          <SummaryRow label="Skills and languages">{skills.join(", ")}</SummaryRow>
+          <SummaryRow label="Skills and knowledge">{skills.join(", ")}</SummaryRow>
           <SummaryRow label="Interests">{form.interests.join(", ")}</SummaryRow>
         </dl>
       </section>

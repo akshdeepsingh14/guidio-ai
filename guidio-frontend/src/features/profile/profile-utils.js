@@ -20,12 +20,12 @@ import {
  */
 
 /* =========================================================
-   COMPLETION (same 8-field rule as server dashboard-service.js)
+   COMPLETION (same 8-field rule as guidio-backend dashboard-service.js)
    ========================================================= */
 
 const COMPLETION_FIELDS = [
   { id: "education", label: "Education level", isDone: (form) => Boolean(form.education) },
-  { id: "college", label: "College or university", isDone: (form) => Boolean(form.college.trim()) },
+  { id: "college", label: "College, university or institute", isDone: (form) => Boolean(form.college.trim()) },
   { id: "degree", label: "Degree", isDone: (form) => Boolean(form.degree.trim()) },
   { id: "graduationYear", label: "Graduation year", isDone: (form) => Boolean(form.graduationYear) },
   { id: "experienceLevel", label: "Experience level", isDone: (form) => Boolean(form.experienceLevel) },
@@ -75,14 +75,20 @@ export function normalizeForm(form) {
   };
 }
 
+/**
+ * The field of study only changes which suggestions are shown and is never
+ * saved, so changing it must not count as an unsaved change.
+ */
+function comparableForm(form) {
+  return JSON.stringify({ ...normalizeForm(form), field: "" });
+}
+
 export function isFormDirty(form, savedForm) {
-  return (
-    JSON.stringify(normalizeForm(form)) !== JSON.stringify(normalizeForm(savedForm))
-  );
+  return comparableForm(form) !== comparableForm(savedForm);
 }
 
 /* =========================================================
-   VALIDATION (mirrors server/src/middleware/validate-profile.js)
+   VALIDATION (mirrors guidio-backend/src/middleware/validate-profile.js)
    Nothing is required, because a profile can be filled in step by
    step. Anything that is filled in must be valid.
    ========================================================= */
@@ -125,7 +131,7 @@ export function validateProfileForm(form) {
   }
 
   if (mergeSkills(data.skills, data.languages).length > LIMITS.maxSkills) {
-    errors.skills = `You can add up to ${LIMITS.maxSkills} skills and languages in total.`;
+    errors.skills = `You can add up to ${LIMITS.maxSkills} skills in total.`;
   }
 
   if (data.interests.length > LIMITS.maxInterests) {

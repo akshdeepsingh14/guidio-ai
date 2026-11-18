@@ -111,6 +111,31 @@ const summaryResponseSchema = {
    ========================================================= */
 
 /**
+ * The student's profile, used only to pitch questions and feedback to the
+ * student's field. It is optional: if it cannot be loaded, the interview
+ * still works from the target role alone.
+ */
+async function getStudentProfile(userId) {
+  try {
+    return await prisma.studentProfile.findUnique({
+      where: { userId },
+      select: {
+        education: true,
+        degree: true,
+        graduationYear: true,
+        experienceLevel: true,
+        targetRole: true,
+        skills: true,
+        interests: true,
+      },
+    });
+  } catch (error) {
+    logger.warn("interview_profile_context_failed", { userId, error });
+    return null;
+  }
+}
+
+/**
  * Asks the AI for the next question. Returns validated data only.
  * Saving is done by the caller, together with other writes, so a failure
  * never leaves a half-finished interview behind.
@@ -122,6 +147,7 @@ function generateQuestionData({
   questionNumber,
   totalQuestions,
   previousQuestions,
+  studentProfile,
 }) {
   return aiService.generateJson({
     feature: "interview-question",
@@ -132,6 +158,7 @@ function generateQuestionData({
       questionNumber,
       totalQuestions,
       previousQuestions,
+      studentProfile,
     }),
     jsonSchema: questionResponseSchema,
     schema: interviewQuestionSchema,
@@ -149,6 +176,8 @@ function generateQuestionData({
  */
 export function createInterviewSession(userId, interviewData) {
   return runStartExclusive(userId, async () => {
+    const studentProfile = await getStudentProfile(userId);
+
     const firstQuestion = await generateQuestionData({
       interviewType: interviewData.interviewType,
       targetRole: interviewData.targetRole,
@@ -156,6 +185,7 @@ export function createInterviewSession(userId, interviewData) {
       questionNumber: 1,
       totalQuestions: TOTAL_QUESTIONS,
       previousQuestions: [],
+      studentProfile,
     });
 
     const created = await prisma.interviewSession.create({
@@ -284,6 +314,8 @@ export function evaluateInterviewAnswer({
     const answeredCount = session.questions.filter((item) => item.answer).length;
     const isLastQuestion = answeredCount + 1 >= session.totalQuestions;
 
+    const studentProfile = await getStudentProfile(userId);
+
     // Step 1: evaluate. Validated with Zod inside the AI layer.
     const evaluation = await aiService.generateJson({
       feature: "interview-evaluation",
@@ -294,6 +326,7 @@ export function evaluateInterviewAnswer({
         question: question.question,
         idealAnswer: question.idealAnswer,
         answerText,
+        studentProfile,
       }),
       jsonSchema: evaluationResponseSchema,
       schema: interviewEvaluationSchema,
@@ -311,6 +344,7 @@ export function evaluateInterviewAnswer({
           questionNumber: nextQuestionNumber,
           totalQuestions: session.totalQuestions,
           previousQuestions: session.questions.map((item) => item.question),
+          studentProfile,
         });
 
     // Step 3: save everything or nothing.

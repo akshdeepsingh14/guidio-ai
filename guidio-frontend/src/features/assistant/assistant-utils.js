@@ -1,11 +1,12 @@
+
 export const MAX_MESSAGE_LENGTH = 5000;
 
 export const SUGGESTED_PROMPTS = [
-  "Explain time complexity with a simple example.",
-  "Give me a beginner roadmap for JavaScript.",
-  "What is the difference between SQL and NoSQL?",
-  "Explain React useEffect in simple words.",
-  "How should I prepare for campus placements in 3 months?",
+  "Explain a difficult concept from my course in simple words.",
+  "Give me a beginner roadmap for my target career.",
+  "How do I structure a strong answer to a long exam question?",
+  "Help me make a 4-week study plan for my exams.",
+  "How should I prepare for my first job interview in 3 months?",
   "Help me write a strong resume summary for a fresher.",
 ];
 
@@ -42,7 +43,11 @@ export function formatMessageTime(value) {
 }
 
 function startOfDay(date) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+  return new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  ).getTime();
 }
 
 /**

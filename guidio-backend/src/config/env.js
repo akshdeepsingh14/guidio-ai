@@ -99,7 +99,9 @@ if (!parsed.success) {
     .join("\n");
 
   console.error(`Invalid or missing environment variables:\n${problems}`);
-  console.error("Copy server/.env.example to server/.env and fill it in.");
+  console.error(
+    "Copy guidio-backend/.env.example to guidio-backend/.env and fill it in.",
+  );
   process.exit(1);
 }
 

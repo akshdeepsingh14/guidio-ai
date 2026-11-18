@@ -56,7 +56,7 @@ export const navigationItems = [
 export const quickActionItems = [
   {
     title: "Ask AI Assistant",
-    description: "Get help with a topic or coding doubt.",
+    description: "Get help with a topic or study question.",
     href: "/assistant",
     icon: BrainCircuit,
     color: "bg-blue-500/10 text-blue-600 dark:text-blue-400",

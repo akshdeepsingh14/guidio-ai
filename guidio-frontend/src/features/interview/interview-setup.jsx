@@ -89,7 +89,7 @@ export function InterviewSetup({
               id="interview-role"
               value={setup.targetRole}
               onChange={(event) => onChange("targetRole", event.target.value)}
-              placeholder="e.g. Frontend Developer"
+              placeholder="e.g. Staff Nurse, Accountant or Software Engineer"
               maxLength={ROLE_MAX_LENGTH}
               autoComplete="off"
               disabled={isStarting}
